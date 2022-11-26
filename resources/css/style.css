@@ -1,0 +1,18 @@
+body {
+  background-image: url('img/wallpaper.jpg');
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.navbar-brand {
+  font-family:'Roboto Mono', monospace;
+}
+h2 {
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+h5 {
+    font-family: monospace;
+}
+.deskripsi-detail { 
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+

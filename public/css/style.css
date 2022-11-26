@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Chakra+Petch:wght@300&family=Exo+2:ital,wght@1,200&family=Kanit:wght@300&family=Silkscreen&display=swap');
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0;  
+    background: transparent;  
+}
+
+
+body {
+  background-image: url('../img/wallpaper.jpg');
+  background-attachment: fixed;
+  background-size: 100% 100%;
+
+
+}
+
+.navbar-brand {
+  font-family:'Roboto Mono', monospace;
+}
+
+.list-movie {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    font-family:'Chakra Petch', sans-serif;
+  }
+
+.judul-movie {
+  margin-bottom: 10px;
+  font-family: monospace;
+}
+
+td {
+  width: 20%;
+}
+
+.Movies {
+  margin-left:10px;
+  margin-right: 10px;
+  font-family: monospace;
+}
+
+.Home {
+  font-family: monospace;
+}
+
+.Logout {
+  font-family:monospace;
+}
+
+.dashboard-admin {
+  margin-right:10px;
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.tombol-detail {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.deskripsi-detail { 
+  font-family: 'Exo 2', sans-serif;
+}
+.genre-detail { 
+  font-family: 'Exo 2', sans-serif;
+}
+
+.isi-deskripsi {
+  font-family: 'Abel', sans-serif;
+}
+
+.form-font {
+  font-family: monospace;
+  color: aquamarine;
+}
+
+.halaman-admin {
+  text-align: center;
+  color:springgreen;
+  font-family: 'Silkscreen', cursive;
+}
+
+.halaman-edit {
+  text-align: center;
+  color:springgreen;
+  font-family: 'Silkscreen', cursive;
+}
+
+.halaman-add {
+  text-align: center;
+  color:springgreen;
+  font-family: 'Silkscreen', cursive;
+}
+
+
+.add-movie {
+  font-family:monospace;
+}
+
+.badge {
+  font-size: 18px;
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.tombol-aksi {
+  color: white;
+  font-family: 'Silkscreen', cursive;
+}
+
+.detail-film {
+  color: aquamarine;
+  font-family: 'Silkscreen', cursive;
+  text-align: center;
+}
+
+.table-text {
+  font-family: 'Exo 2', sans-serif;
+}
+
+.card-detail {
+  color: rgb(248, 248, 248);
+  background-color: rgb(53, 51, 51);
+  margin-left: 400px;
+  
+}
+
+.deskripsi-detail {
+  height: 10px;
+}
+
+.detail-box {
+  border-radius: 20px;
+
+}
+
+.image-height {
+  height: 350px;
+}
+
+.row-position {
+  margin-left: 75px;
+}
+
+.font-delete {
+  color: rgb(114, 228, 133);
+  font-family: 'Silkscreen', cursive;
+  margin-top: 20px;
+}
+
+.font-delete-strong {
+  color: black;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.btn-delete-admin {
+  font-family: monospace;
+}
+
+.login-font {
+  color:gold;
+  font-family: 'Silkscreen', cursive;
+}
+
+.login-register-form {
+  font-size: large;
+  font-weight: bold;
+  font-family: 'Chakra Petch', sans-serif;
+  margin-bottom: 10px;
+  box-shadow: 5px 5px;
+  border-radius: 10px;
+}
+
+.custom-form {
+  margin-left: 350px;
+  margin-top: 100px;
+}
+
+.login-button {
+  background-color: goldenrod;
+  font-weight: bold;
+  font-family: 'Chakra Petch', sans-serif;
+  margin-top: 10px;
+}
+
+.account-icon {
+  border-radius: 20%;
+  padding: 5px;
+  width: 46px;
+  margin-right: 10px;
+}
+
+.user-name {
+  color:azure;
+  font-size: small;
+}
+
+.custom-badge {
+  font-size: small;
+}
+
+.only-admin {
+  text-align: center;
+  margin-top: 150px;
+  color:chartreuse;
+  font-family: 'Silkscreen', cursive;
+  font-size: 70px;
+}
+
+.back-button {
+  color: blue;
+  font-family: 'Exo 2', sans-serif;
+  font-size: large;
+  font-weight: bold;
+  margin-left: 450px;
+  width: 15rem;
+}
+
+.font-tahun {
+  color:rgb(206, 226, 115);
+  font-family:'Silkscreen', cursive;
+}
+
+.searching {
+  width: 400px;
+  margin-bottom: 5px;
+}
+
+.search-index {
+  margin-left: 350px;
+  width: 450px;
+}
+
+.btn-group {
+  margin-right: 10px;
+}
+
+.dropdown-toggle {
+  font-family: 'Kanit', sans-serif;
+  font-weight: bold;
+}
+
+.font-reviews {
+  text-align: start;
+  margin-top: 10px;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: bold;
+}
+
+.comment-section {
+  text-align: start;
+}
+
+.add-comment {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: bold;
+  margin-left: 150px;
+}
+
+.comment-limit {
+  margin-left: 380px;
+}
+
+.history-review {
+  font-family: 'Kanit', sans-serif;
+  font-weight: bold;
+  margin-left: 450px;
+  margin-top: 10px;
+}
+
+.history-back {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.no-comments {
+  font-family: 'Exo 2', sans-serif;
+  font-size: large;
+  margin-left: 100px;
+}
+
+.users-data-btn {
+  margin-right: 10px;
+  font-family: monospace;
+}
+
+.star-rating {
+  line-height:32px;
+  font-size:1.25em;
+}
+
+.star-rating .bi-star{color: white;}
+
+.tags {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.comment-font {
+  font-family: 'Chakra Petch', sans-serif;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.hapus-comment {
+  
+}
+
+
+
+
+
+
+
+
+
+
