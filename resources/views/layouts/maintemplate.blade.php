@@ -46,7 +46,7 @@
                 </li>
                     <li>
                       <span class="badge rounded-pill text-bg-info custom-badge">User</span>
-                      <img src="{{ asset('/storage/gambarprofil/user-icon.png') }}" class="account-icon">
+                      <img src="{{ asset('/img/gambarprofil/user-icon.png') }}" class="account-icon">
                     </li>
                   @else
                   <li>
@@ -54,7 +54,7 @@
                   </li>
                     <li>
                       <span class="badge rounded-pill text-bg-success custom-badge">Admin</span>
-                      <img src="{{ asset('/storage/gambarprofil/admin-icon.png') }}" class="account-icon">
+                      <img src="{{ asset('/img/gambarprofil/admin-icon.png') }}" class="account-icon">
                     </li>
                  @endif
 
