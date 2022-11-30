@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +21,11 @@ class RegisterController extends Controller
 
         $request['password'] = Hash::make($request->password);
 
-        $register = User::create($request->all());
+        $registerData = User::create($request->all());
+
+        event(new UserRegistered($registerData['email']));
         
-        if($register){
+        if($registerData){
             Session::flash('register-message', 'Register Success!');
         }
 
