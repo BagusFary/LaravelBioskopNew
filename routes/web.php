@@ -8,6 +8,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SendNotifController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,6 @@ Route::group(['middleware' => ['auth', 'onlyadmin']], function() {
     Route::get('/dashboard-admin/delete/{id}', [DashboardController::class, 'delete']);
     Route::delete('/dashboard-admin/destroy/{id}', [DashboardController::class, 'destroy']);
 });
+
+
+Route::get('/testing-notif', [SendNotifController::class, 'SendNotif']);

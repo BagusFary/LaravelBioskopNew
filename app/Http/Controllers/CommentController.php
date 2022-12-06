@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Comment;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Notifications\CommentNotification;
 
 class CommentController extends Controller
 {
@@ -21,7 +21,9 @@ class CommentController extends Controller
 
 
     public function store(Request $request)
-    {
+    {       
+
+        // Store Comment Data
         if ($request['rating'] >= 6) {
             return redirect('/')->with('warning', 'Access Denied');
         }
@@ -38,11 +40,27 @@ class CommentController extends Controller
 
         $comment = Comment::create($request->all());
 
+        // Comment Review Notification
+
+        $user = Auth::user();
+
+        $commentNotifData = [
+            'body' => 'Your Review Has Been Added',
+            'commentText' => $request->text,
+            'url' => url('/'),
+            'thankyou' => 'Thank You for Reviewing!!'
+        ];
+
+        $user->notify(new CommentNotification($commentNotifData));
+        
+
         if($comment) {
             Session::flash('message', 'Comment Added');
         }
 
         return redirect('/');
+
+        
     }
     
 }
