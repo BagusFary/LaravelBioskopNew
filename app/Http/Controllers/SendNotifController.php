@@ -11,7 +11,9 @@ use App\Notifications\CommentNotification;
 class SendNotifController extends Controller
 {
     public function SendNotif(){
-        $user = Auth::user();
+        $user = [
+            "email" => Auth::user()->email
+        ];
         dd($user);
 
         $commentNotifData = [
