@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Comment;
+use App\Jobs\CommentJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -42,21 +43,30 @@ class CommentController extends Controller
 
         // Comment Review Notification
 
-        $user = Auth::user();
+        // $user = Auth::user();
 
-        $commentNotifData = [
-            'body' => 'Your Review Has Been Added',
-            'commentText' => $request->text,
-            'url' => url('/'),
-            'thankyou' => 'Thank You for Reviewing!!'
-        ];
+        // $commentNotifData = [
+        //     'body' => 'Your Review Has Been Added',
+        //     'commentText' => $request->text,
+        //     'url' => url('/'),
+        //     'thankyou' => 'Thank You for Reviewing!!'
+        // ];
 
-        $user->notify(new CommentNotification($commentNotifData));
-        
+        // $user->notify(new CommentNotification($commentNotifData));
+
+       
+       
 
         if($comment) {
             Session::flash('message', 'Comment Added');
         }
+
+        // // Comment Queue Jobs
+
+        // dispatch(new CommentJob());
+            
+        // dd("Email Success");
+        
 
         return redirect('/');
 
