@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Jobs\CommentJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class CommentEmailController extends Controller
             'thankyou' => 'Thank You for Reviewing!!'
         ];
         
-        dispatch(new CommentJob($email, $commentNotifData));
+        dispatch(new CommentJob($email, $commentNotifData))->delay(Carbon::now()->addSecond(15));
 
         dd('berhasil');
        

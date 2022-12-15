@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 
+use Carbon\Carbon;
 use App\Models\Comment;
 use App\Jobs\CommentJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Notifications\CommentNotification;
+
 
 class CommentController extends Controller
 {
@@ -23,6 +24,7 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {       
+       
 
         // Store Comment Data
         if ($request['rating'] >= 6) {
@@ -40,6 +42,19 @@ class CommentController extends Controller
          } 
 
         $comment = Comment::create($request->all());
+
+         // Comment Queue Jobs
+
+         $email = Auth::user();
+
+         $commentNotifData = [
+             'body' => 'Your Review Has Been Added',
+             'commentText' => $request->text,
+             'url' => url('/'),
+             'thankyou' => 'Thank You for Reviewing!!'
+         ];
+         
+         dispatch(new CommentJob($email, $commentNotifData))->delay(Carbon::now()->addSecond(15));
 
         // Comment Review Notification
 
@@ -61,16 +76,32 @@ class CommentController extends Controller
             Session::flash('message', 'Comment Added');
         }
 
-        // // Comment Queue Jobs
-
-        // dispatch(new CommentJob());
-            
-        // dd("Email Success");
+        
         
 
         return redirect('/');
 
         
+    }
+
+    public function delete($id)
+    {
+        $commentData = Comment::with('movie')
+        ->where('id', $id)
+        ->get();
+
+        return view('comment-delete', ['data' => $commentData]);
+    }
+
+    public function destroy($id)
+    {
+        $comment = Comment::FindOrFail($id);
+        $comment->delete();
+        if($comment){
+            Session::flash('comment-message', 'Delete Comment Success');
+        }
+
+        return redirect('/history-comments/');
     }
     
 }

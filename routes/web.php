@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ApiMovieController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -34,8 +33,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/', [MovieController::class, 'index'])->middleware('auth');
 
 // Comments
-Route::get('/history-comments/{id}', [CommentController::class, 'index']);
+Route::get('/history-comments/{id}', [CommentController::class, 'index'])->middleware('auth');
 Route::post('/comment-store', [CommentController::class, 'store'])->middleware('auth');
+Route::get('/comment-delete/{id}', [CommentController::class, 'delete'])->middleware('auth');
+Route::delete('/comment-destroy/{id}', [CommentController::class, 'destroy'])->middleware('auth');
 
 // Only Admin
 Route::group(['middleware' => ['auth', 'onlyadmin']], function() {
