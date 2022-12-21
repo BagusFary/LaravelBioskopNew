@@ -41,7 +41,7 @@ class CommentJob implements ShouldQueue
         // Menggunakan Mail
         // Mail::to($this->email)->send(new CommentMail());
         
-        // Menggunakan Queue
+        // Menggunakan Queue / Jobs
         $this->email->notify(new CommentNotification($this->commentNotifData));
 
     }

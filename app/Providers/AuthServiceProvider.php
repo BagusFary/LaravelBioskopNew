@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+
+use App\Models\User;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +28,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('comment-section', function(User $user, Comment $comment) {
+            return $user->id !== $comment->movie_id;
+        });
+
+        Gate::define('comment-delete', function (User $user, Comment $comment) {
+            return $user->id === $comment->user_id;
+        });
+        
     }
 }

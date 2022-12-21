@@ -37,7 +37,7 @@ class CommentController extends Controller
 
         if (Comment::where('movie_id', $request->movie_id)->where('user_id', Auth::id())->first()) {
             
-            return redirect('/')->with('comment-success', 'Already Commented');
+            return redirect('/')->with('warning', 'Already Commented');
             
          } 
 
@@ -75,8 +75,6 @@ class CommentController extends Controller
         if($comment) {
             Session::flash('message', 'Comment Added');
         }
-
-        
         
 
         return redirect('/');
@@ -98,10 +96,10 @@ class CommentController extends Controller
         $comment = Comment::FindOrFail($id);
         $comment->delete();
         if($comment){
-            Session::flash('comment-message', 'Delete Comment Success');
+            Session::flash('message', 'Delete Comment Success');
         }
 
-        return redirect('/history-comments/');
+        return redirect('/');
     }
     
 }

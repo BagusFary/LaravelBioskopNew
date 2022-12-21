@@ -22,10 +22,18 @@ class RegisterController extends Controller
 
         $registerData = User::create($request->all());
 
-        event(new UserRegistered($request->input('email')));
+       
         
         if($registerData){
-            Session::flash('register-message', 'Register Success!');
+
+            event(new UserRegistered($request->input('email')));
+
+            Session::flash('register-success', 'Register Success!, Check Your Email');
+
+        } else {
+            
+            Session::flash('register-failed', 'Register Failed, Try Again Later..');
+
         }
 
         return redirect('/login');

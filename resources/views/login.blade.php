@@ -10,9 +10,17 @@
                     <h1 class="h3 my-4 fw-normal login-font text-center ">LOGIN</h1>
 
                     {{-- Register Success --}}
-                    @if(Session::has('register-message'))
+                    @if(Session::has('register-success'))
                         <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
-                            {{ Session::get('register-message') }}
+                            {{ Session::get('register-success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>    
+                    @endif  
+                    
+                    {{-- Register Failed --}}
+                    @if(Session::has('register-failed'))
+                        <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+                            {{ Session::get('register-failed') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>    
                     @endif  

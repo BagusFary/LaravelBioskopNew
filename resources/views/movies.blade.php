@@ -138,12 +138,12 @@
                                         <option value="5">5</option>
                                     </select>
                                 </div>
-
+                                
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                                 <textarea name="text" class="form-control font-reviews" id="text" placeholder="Add Your Comment" cols="30" rows="2"></textarea>
-                                <button type="submit" class="btn btn-warning mt-2 font-reviews" >Add Comment</button>        
-
+                                <button type="submit" class="btn btn-warning mt-2 font-reviews" >Add Comment</button> 
+                                                               
                                 {{-- Dropdown Rating --}}
                                 
                             </form>
@@ -157,7 +157,7 @@
                                         @forelse ($movie->comment as $data)
                                         
                                     
-                                        @if ($data->user->role_id == 1)
+                                        {{-- @if ($data->user->role_id == 1)
                                             
                                             <div class="container mx-2">
 
@@ -173,20 +173,36 @@
 
                                         @endif
                                             
-                                        @if($data->user->role_id == 2) 
+                                        @if($data->user->role_id == 2)  --}}
 
                                             <div class="container mx-2">
 
-                                                <small>{{ date_format($data->created_at, "d M Y") }}</small>
-                                                <br>
-                                                <strong>{{ $data->user->name }}</strong> 
+                                                    <small>{{ date_format($data->created_at, "d M Y") }}</small>
+                                                    <br>
+                                                @if ($data->user->role_id == 1)
+                                                    <span class="badge rounded-pill text-bg-success">Admin</span>
+                                                @endif
+
+                                                    <strong>{{ $data->user->name }}</strong>
+
+                                                @can('comment-delete', $data)
+
+                                                        <form action="/comment-destroy/{{ $data->id }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-danger tombol-aksi" onclick="return confirm('Delete Your Comment?')">Delete</button>
+                                                        </form>
                                                     
+                                                @endcan
+
                                                 <p class="comment-font"><i class="bi bi-star"> {{ $data->rating }} <br> {{ $data->text }} </i></p>
+
+                                                
 
                                                     
                                             </div>
                                                 
-                                        @endif
+                                        {{-- @endif --}}
        
                                         @empty
                                             <strong class="no-comments">No Comments</strong>
