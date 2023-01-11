@@ -16,7 +16,7 @@ class MovieController extends Controller
                 // New Query Eloquent
                 $keyword = $request->keyword;
                 $newmovie = Cache::remember('movie', 60, function() use($keyword){
-                   return Movie::with(['comment:id,text,user_id,movie_id,rating,created_at', 'comment.user:id,name,role_id'])
+                   return Movie::with(['genres:id,name','tags:id,name','comment:id,text,user_id,movie_id,rating,created_at', 'comment.user:id,name,role_id'])
                     ->select('id', 'judul', 'deskripsi', 'genre_id', 'image', 'tahun')
                     ->where('judul', 'LIKE', '%'.$keyword.'%')
                     ->orWhere('tahun', 'LIKE', '%'.$keyword.'%')
