@@ -19,19 +19,18 @@
                 Genre
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/?keyword=horror">Horror , {{ count($horror) }}</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/?keyword=comedy">Comedy , {{ count($comedy) }}</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/?keyword=romance">Romance , {{ count($romance) }}</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/?keyword=action">Action , {{ count($action) }}</a></li>
+                    <li><a class="dropdown-item" href="/">All Movie</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                @foreach ($newgenre as $genre)             
+                    <li><a class="dropdown-item" href="/?keyword={{ $genre->name }}">{{ $genre->name }} , {{ $genre->movies_count }}</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                @endforeach
               </ul>
 
               <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 Tahun
               </button>
-              @foreach($movieList as $data)
+              @foreach($newmovie as $data)
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/?keyword=2021">2021</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -41,6 +40,10 @@
 
         </div>
     </form>
+    <br>
+ 
+   
+
 
     {{-- Popup Message --}}
     @if(Session::has('message'))
@@ -78,7 +81,7 @@
 
 <div class="container">
     <div class="row row-position">
-        @foreach ($movieList as $movie)   
+        @foreach ($newmovie as $movie)   
         <div class="col-md-4 mt-5 text-center">
             <div class="card text-white bg-dark mb-5 " style="width: 15rem;">
                 @if($movie->genres->name == 'Horror')
@@ -154,66 +157,44 @@
                             <div class="offcanvas-body">
                                 <div class="container comment-section">  
 
-                                        @forelse ($movie->comment as $data)
+
+
+                                        @forelse ($movie->comment as $item)
                                         
-                                    
-                                        {{-- @if ($data->user->role_id == 1)
-                                            
-                                            <div class="container mx-2">
-
-                                                <small>{{ date_format($data->created_at, "d M Y") }}</small>
+                                        <div class="container mx-2">  
+                                                
+                                                <small>{{ date_format($item->created_at, "d M Y") }}</small>                 
                                                 <br>
-                                                <span class="badge rounded-pill text-bg-success">Admin</span>
-                                                <strong>{{ $data->user->name }} <br> </i></p></strong>                                           
-                                                    
-                                                <p class="comment-font"><i class="bi bi-star"> {{ $data->rating }} <br> {{ $data->text }}</i></p>
-                
-                                            </div>
-
-
-                                        @endif
                                             
-                                        @if($data->user->role_id == 2)  --}}
 
-                                            <div class="container mx-2">
+                                            @if ($item->user->role_id == 1)
+                                                <span class="badge rounded-pill text-bg-success">Admin</span>
+                                            @endif
 
-                                                    <small>{{ date_format($data->created_at, "d M Y") }}</small>
-                                                    <br>
-                                                @if ($data->user->role_id == 1)
-                                                    <span class="badge rounded-pill text-bg-success">Admin</span>
-                                                @endif
+                                                <strong>{{ $item->user->name }}</strong>
 
-                                                    <strong>{{ $data->user->name }}</strong>
+                                            @can('comment-delete', $item)
 
-                                                @can('comment-delete', $data)
-
-                                                        <form action="/comment-destroy/{{ $data->id }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger tombol-aksi" onclick="return confirm('Delete Your Comment?')">Delete</button>
-                                                        </form>
-                                                    
-                                                @endcan
-
-                                                <p class="comment-font"><i class="bi bi-star"> {{ $data->rating }} <br> {{ $data->text }} </i></p>
-
+                                                    <form action="/comment-destroy/{{ $item->id }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger tombol-aksi" onclick="return confirm('Delete Your Comment?')">Delete</button>
+                                                    </form>
                                                 
+                                            @endcan
 
-                                                    
-                                            </div>
-                                                
-                                        {{-- @endif --}}
-       
+                                            <p class="comment-font"><i class="bi bi-star"> {{ $item->rating }} <br> {{ $item->text }} </i></p>
+                                                                    
+                                        </div>
+
+                                        
+                                                                                              
                                         @empty
                                             <strong class="no-comments">No Comments</strong>
-                                        @endforelse
+                                        @endforelse 
                                         
                                 </div>
                             </div>
-
-                   
-                 
-                        
                     </div>
 
                     {{-- OffCanvas Detail Film --}}
@@ -237,7 +218,9 @@
                             {{ $movie->deskripsi }}
                             </div>
                     </div>
+
                     {{-- Tags Section --}}
+                    
                     @foreach ($movie->tags as $tags)
 
                         <a href="/?keyword={{ $tags->name }}"><span class="badge rounded-pill text-bg-warning tags">{{ $tags->name }}</span></a>
@@ -254,7 +237,7 @@
 
         
      <div class="mb-5">
-        {{ $movieList->withQueryString()->links() }}
+        {{ $newmovie->withQueryString()->links() }}
      </div>
     
 @endsection

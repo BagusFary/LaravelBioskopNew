@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\MovieCreateRequest;
@@ -49,7 +50,10 @@ class DashboardController extends Controller
 
          if($movie){
             Session::flash('message', 'Add Movie Success');
+            Cache::forget('genres');
          }
+
+        
         
          return redirect('/dashboard-admin');
 

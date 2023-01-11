@@ -7,41 +7,48 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use App\Http\Requests\MovieCreateRequest;
+use Illuminate\Support\Facades\Cache;
 
 class MovieController extends Controller
 {
     public function index(Request $request)
     {
-        $keyword = $request->keyword;
-        $movie = Movie::with(['tags','genres', 'comment.user'])
-                        ->where('judul', 'LIKE', '%'.$keyword.'%')
-                        ->orWhere('tahun', 'LIKE', '%'.$keyword.'%')
-                        ->orWhereHas('genres', function($query) use($keyword){
-                            $query->where('name', 'LIKE', '%'.$keyword.'%');
-                        })
-                        ->paginate(6);
+                // New Query Eloquent
+                $keyword = $request->keyword;
+                $newmovie = Cache::remember('movie', 60, function() use($keyword){
+                   return Movie::with(['comment:id,text,user_id,movie_id,rating,created_at', 'comment.user:id,name,role_id'])
+                    ->select('id', 'judul', 'deskripsi', 'genre_id', 'image', 'tahun')
+                    ->where('judul', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('tahun', 'LIKE', '%'.$keyword.'%')
+                    ->orWhereHas('genres', function($query) use($keyword) {
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    })
+                    ->paginate(6);
+                });
+   
 
-        $tags = Tag::get();
-        
-        
-        // count total genre film
-        $horror = Movie::where('genre_id', 1)->get();
-        $romance = Movie::where('genre_id', 2)->get();
-        $comedy = Movie::where('genre_id', 3)->get();
-        $action = Movie::where('genre_id', 4)->get();                    
-
-        
-
+                 $newgenre= Cache::remember('genre', 60, function(){
+                    return Genre::select('id', 'name')->withCount('movies')->get();
+                 });
                         
-        return view('movies', ['movieList' => $movie,
-                                'tags' => $tags,
-                                 'horror' => $horror, 
-                                 'comedy' => $comedy,
-                                 'romance' => $romance,
-                                 'action' => $action]);
+        return view('movies', [ 'newmovie' => $newmovie,
+                                'newgenre' => $newgenre
+                            ]);
     }
+
+    // public function Search(Request $request)
+    // {
+    //     $keyword = $request->keyword;
+
+    //     $searchData = Movie::where('judul', 'LIKE', '%'.$keyword.'%' )
+    //                         ->orWhere('tahun', 'LIKE', '%'.$keyword.'%')
+    //                         ->orWhereHas('genres', function($query) use($keyword){
+    //                             $query->where('name', 'LIKE', '%'.$keyword.'%');
+    //                         })->paginate(6);
+
+    //     return view('movies', ['']);
+    // }
 
    
 }
+
