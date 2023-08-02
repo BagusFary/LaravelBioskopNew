@@ -50,7 +50,6 @@ class DashboardController extends Controller
 
          if($movie){
             Session::flash('message', 'Add Movie Success');
-            Cache::forget('genres');
          }
 
         
